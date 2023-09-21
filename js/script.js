@@ -1,4 +1,5 @@
-import playList from './playList.js';
+import playList from './playlist.js';
+
 const time = document.querySelector (".time");
 const dateString = document.querySelector (".date");
 const greetingText = document.querySelector (".greeting");
@@ -18,7 +19,7 @@ const author = document.querySelector (".author");
 const playBtn = document.querySelector (".play");
 const nextSong = document.querySelector (".play-next");
 const prevSong = document.querySelector (".play-prev");
-const trackList = document.querySelector(".play-list");
+const trackList = document.querySelector (".play-list");
 const audio = new Audio ();
 const body = document.body;
 let audioIndex = 0;
@@ -26,6 +27,7 @@ let isPlay = false;
 let randomInteger = getRandomInteger (1, 20);
 let randomQuote = getRandomInteger (0, 14);
 audio.src = playList[audioIndex].src;
+
 function updateClock () {
     const date = new Date ();
     const hours = date.getHours () < 10 ? "0" + date.getHours () : date.getHours ();
@@ -33,6 +35,7 @@ function updateClock () {
     const seconds = date.getSeconds () < 10 ? "0" + date.getSeconds () : date.getSeconds ();
     time.textContent = `${hours}:${minutes}:${seconds}`;
 }
+
 function showDate () {
     const date = new Date ();
     const options = {
@@ -42,6 +45,7 @@ function showDate () {
     setTimeout (showDate, 1000);
     return currentDate;
 }
+
 function audioPlay () {
     if (isPlay === false) {
         audio.play ();
@@ -50,6 +54,7 @@ function audioPlay () {
         console.error ("Ooops! Something went wrong with audio!");
     }
 }
+
 function audioPause () {
     if (isPlay === true) {
         audio.pause ();
@@ -57,6 +62,7 @@ function audioPause () {
         console.error ("Ooops! Something went wrong with audio!");
     }
 }
+
 function getTimeOfDay () {
     const date = new Date ();
     const hours = date.getHours ();
@@ -70,18 +76,22 @@ function getTimeOfDay () {
         return "night";
     }
 }
+
 function saveLocalStorage () {
     localStorage.setItem ("username", userName.value);
 }
+
 function getFromLS () {
     let username = localStorage.getItem ("username");
     if (username !== null && username !== undefined) {
         userName.value = username;
     }
 }
+
 function getRandomInteger (min, max) {
     return Math.floor (Math.random () * (max - min) + min);
 }
+
 function getQuote () {
     quote.innerText = "";
     const quotes = [{
@@ -125,12 +135,14 @@ function getQuote () {
     quote.innerText = quota;
     author.innerText = authorName;
 }
+
 function setImage () {
     let timeOfDay = getTimeOfDay ();
     let imageInteger = randomInteger < 10 ? "0" + randomInteger : randomInteger;
     console.log (imageInteger);
     body.style.backgroundImage = `url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${imageInteger}.jpg')`;
 }
+
 function nextSlide () {
     if (randomInteger > 19) {
         randomInteger = 0;
@@ -138,6 +150,7 @@ function nextSlide () {
     randomInteger++;
     setImage ();
 }
+
 function prevSlide () {
     if (randomInteger === 1) {
         randomInteger = 21;
@@ -210,7 +223,7 @@ getQuote ();
 
 playBtn.addEventListener ("click", () => {
     if (isPlay === true) {
-        audioPause();
+        audioPause ();
         isPlay = false;
     } else {
         audioPlay ();
@@ -243,9 +256,9 @@ playBtn.addEventListener ("click", () => {
     })
 })
 
-playList.forEach(item => {
-    const li = document.createElement('li');
-    li.classList.add("play-item");
+playList.forEach (item => {
+    const li = document.createElement ('li');
+    li.classList.add ("play-item");
     li.textContent = item.title;
-    trackList.append(li);
+    trackList.append (li);
 })
