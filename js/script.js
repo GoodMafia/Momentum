@@ -50,6 +50,7 @@ function audioPlay () {
     if (isPlay === false) {
         audio.play ();
         isPlay = true;
+        playBtn.classList.add ('pause');
     } else {
         console.error ("Ooops! Something went wrong with audio!");
     }
@@ -58,6 +59,7 @@ function audioPlay () {
 function audioPause () {
     if (isPlay === true) {
         audio.pause ();
+        playBtn.classList.remove ('pause');
     } else {
         console.error ("Ooops! Something went wrong with audio!");
     }
@@ -139,7 +141,6 @@ function getQuote () {
 function setImage () {
     let timeOfDay = getTimeOfDay ();
     let imageInteger = randomInteger < 10 ? "0" + randomInteger : randomInteger;
-    console.log (imageInteger);
     body.style.backgroundImage = `url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${imageInteger}.jpg')`;
 }
 
@@ -165,7 +166,6 @@ ymaps.ready (function () {
     fetch (url)
         .then ((response) => response.json ())
         .then ((data) => {
-            console.log (data);
             city.value = data.city.name;
             weatherError.innerText = "";
             weatherIcon.className = "weather-icon owf";
@@ -184,7 +184,6 @@ city.addEventListener ("change", () => {
     fetch (url)
         .then ((response) => response.json ())
         .then ((data) => {
-            console.log (data);
             if (data.message === "city not found") {
                 weatherError.innerText = "Error: Your city not found";
                 temp.innerText = "";
@@ -262,3 +261,4 @@ playList.forEach (item => {
     li.textContent = item.title;
     trackList.append (li);
 })
+
